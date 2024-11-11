@@ -15,21 +15,9 @@ def plot_risk(k_values, loo_errors):
 
 def dist_matr(X_train:np.array, X_test:np.array, dist_type="d2"):
     if dist_type == "d2":
-        # print(points)
         squared_norms_obych = np.sum(X_train ** 2, axis=1).reshape(-1, 1)
         squared_norms_predict = np.sum(X_test ** 2, axis=1).reshape(-1, 1)
-
-        # print(f"{squared_norms_obych=}")
-        # print(f"{squared_norms_predict=}")
-
-        # print(squared_norms)
-        # dist_matrix = np.sqrt((squared_norms + squared_norms.T) - 2 * points @ points.T)
-        # print(f"{(2 * squared_norms_obych @ squared_norms_predict.T)=}")
         dist_matrix = (squared_norms_predict + squared_norms_obych.T) - (2 * (X_test @ X_train.T))
-        # print(dist_matrix)
-    # elif dist_type == "d1":
-    #     single_norm = np.sum(points, axis=1).reshape(-1, 1)
-    #     dist_matrix = np.abs(single_norm - single_norm.T)
     else:
         raise Exception("Метод не добавлен")
     return dist_matrix
@@ -59,35 +47,22 @@ def find_winning_class(weights, labels, num_classes):
 def knn_predict(X_train, y_train, X_test, k):
     """ KNN с окном Парзена и переменной шириной окна для одного тестового примера. """
     distances = dist_matr(X_train, X_test)
-    # print(f"{distances.shape=}")
     sorted_indices_per_point = np.argsort(distances, axis=1)
-    # print(sorted_indices_per_point)
     k_nearest_indices = sorted_indices_per_point[:, :k+1]
 
-    # print(f"{k_nearest_indices=}")
-    # k_nearest_distances = distances[k_nearest_indices]
     k_nearest_distances = distances[np.arange(distances.shape[0])[:, None], k_nearest_indices]
-    # print(f"{k_nearest_distances.shape}")
     k_nearest_labels = y_train[k_nearest_indices[:, :-1]]
-    # print(f"{np.unique(k_nearest_labels, return_counts=True, axis=1)=}")
     
     # Используем расстояние до k-го соседа как ширину окна
     bandwidth = k_nearest_distances[:, -1]
     
     # Рассчитываем веса с помощью гауссова ядра
-    # print(f"{k_nearest_distances[:, :-1]=}")
-    # print(f"{bandwidth=}")
-
     weights = gaussian_kernel(k_nearest_distances[:, :-1], bandwidth)
 
     unique_labels = np.unique(y_train)
 
         # Классификация по взвешенному голосованию
-
     k_sosed_weight = weights * k_nearest_distances[:, :-1]
-    # print(f"{k_sosed_weight=}")
-    # print(f"{k_nearest_labels=}")
-
     
 
     return find_winning_class(weights=k_sosed_weight, labels=k_nearest_labels, num_classes=unique_labels.shape[0])
@@ -138,12 +113,6 @@ if __name__ == "__main__":
     X_train, X_test = X[:train_size], X[train_size:]
     y_train, y_test = y[:train_size], y[train_size:]
 
-    # np.random.seed(42)
-
-    # Генерируем или загружаем данные
-    # X = np.random.rand(5000, 2)  # Пример случайных данных (100 точек, 2 признака)
-    # y = np.random.randint(0, 4, 5000)  # Пример случайных меток классов (0 или 1)
-
 
     
 
@@ -179,13 +148,11 @@ if __name__ == "__main__":
 
 
     for group in np.unique(y):
-        # print(group[:,0])
         group = np.array(group)
         plt.scatter(X[y_pred==group, 0], X[y_pred==group, 1] )
     plt.show()
 
     for group in np.unique(y):
-        # print(group[:,0])
         group = np.array(group)
         plt.scatter(X[sklearn_y==group, 0], X[sklearn_y==group, 1] )
     plt.show()
