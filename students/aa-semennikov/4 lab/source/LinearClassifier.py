@@ -20,7 +20,7 @@ class LinearClassifier:
     def margin(self, X, y):
         return (X @ self.W) * y
     
-    # Квадратичная ф. потерь
+    # Среднеквадратичная ошибка
     def loss(self, X, y):
         return np.mean((y - (X @ self.W)) ** 2 + self.reg_coef * np.sum(self.W ** 2) / 2)
 
