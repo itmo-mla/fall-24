@@ -12,7 +12,7 @@ $$
 \begin{aligned}
 &-mathscr{L}(lambda) = -sum_{i=1}^{ell} lambda_{i} + \frac{1}{2} sum_{i=1}^{ell} sum_{j=1}^{ell} lambda_{i} lambda_{j} y_{i} y_{j} langle x_{i}, x_{j} \rangle \rightarrow min_{lambda} \
 &\text{при условиях: } sum_{i=1}^{ell} lambda_{i} y_{i} = 0; quad 0 leq lambda_{i} leq C, quad i=1, ldots, ell.
-end{aligned}
+\end{aligned}
 $$
 
 Где C — это параметр регуляризации, контролирующий баланс между максимизацией отступа и минимизацией ошибки на обучающем наборе данных. Решение этой задачи позволяет находить значения λᵢ, которые затем используются для вычисления весов w и смещения w₀ модели.
@@ -23,7 +23,7 @@ $$
 \begin{aligned}
 &w = sum_{i=1}^{ell} lambda_{i} y_{i} x_{i}, \
 &w_0 = langle w, x_{i} \rangle - y_{i}, quad \text{для любого } i: lambda_{i} > 0.
-end{aligned}
+\end{aligned}
 $$
 
 Где w — это вектор весов, определяющий ориентацию гиперплоскости, а w₀ — смещение, которое позволяет перемещать гиперплоскость в пространстве признаков.
@@ -31,7 +31,7 @@ $$
 Линейный классификатор, основанный на найденных параметрах, может быть представлен в следующем виде:
 
 $$
-a(x) = operatorname{sign}left(sum_{i=1}^{ell} lambda_{i} y_{i} langle x, x_{i} \rangle - w_0\right).
+a(x) = operatorname{sign}\left(sum_{i=1}^{ell} lambda_{i} y_{i} langle x, x_{i} \rangle - w_0\right).
 $$
 
 В коде для оптимизации функции Лагранжа используется функция `scipy.optimize.minimize`:
@@ -111,7 +111,7 @@ Accuracy: 1.0
 ```
 ## Визуализация решения
 
-![1.png]('./images/1.png')
+![1.png](./images/1.png)
 
 ## Эталонное решение
 
