@@ -164,7 +164,7 @@ The optimal regularization parameter (τ) is selected using validation set appro
    τ=10.0:   MSE=0.069777
    ```
 
-   ![MSE](images/output.png)
+   ![MSE](Images/output.png)
 
 ## Performance Comparison
 
@@ -184,8 +184,8 @@ The results show that our implementation achieves performance nearly identical t
 
 ### Performance Visualization
 <div style="display: flex; justify-content: space-between;">
-    <img src="images/output1.png" alt="Actual vs Predicted Values (Custom Model)" width="48%">
-    <img src="images/output2.png" alt="Actual vs Predicted Values (Sklearn Ridge)" width="48%">
+    <img src="Images/output1.png" alt="Actual vs Predicted Values (Custom Model)" width="48%">
+    <img src="Images/output2.png" alt="Actual vs Predicted Values (Sklearn Ridge)" width="48%">
 </div>
 
 ## Key Findings
@@ -243,4 +243,4 @@ print(f"R²: {r2:.6f}")
 
 This project demonstrates a robust implementation of Ridge Regression using SVD, with a focus on numerical stability and performance comparison with scikit-learn's Ridge regression. The implementation includes comprehensive preprocessing, regularization parameter selection, and detailed performance metrics. The results show that our implementation achieves nearly identical performance to scikit-learn's Ridge regression when accounting for the relationship τ = 2α.
 
-![Final Output](images/outputF.png)
+![Final Output](Images/outputF.png)
