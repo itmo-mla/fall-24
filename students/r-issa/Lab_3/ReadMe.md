@@ -25,7 +25,7 @@ In this task we compare Five _Decision Tree Classifiers_ with the `MAX_DEPTH = 6
 
 ### **Reference Decision Tree Classifier:**
 
-**The Tree:**
+**The Tree:**  
 <img src='assets\classification_reference.png'>
 
 **The Confusion Matrix:**  
@@ -47,7 +47,7 @@ _Execution Time_: 1047 mcs
 
 ### **Custom Decision Tree Classifier with criterion _Entropy_ before pruning:**
 
-**The Tree:**
+**The Tree:**  
 <img src='assets\classification_entropy_custom.png'>
 
 **The Confusion Matrix:**  
@@ -69,7 +69,7 @@ _Execution Time_: 806 mcs
 
 ### **Custom Decision Tree Classifier with criterion _Entropy_ after pruning:**
 
-**The Tree:**
+**The Tree:**  
 <img src='assets\classification_entropy_custom_prun.png'>
 
 **The Confusion Matrix:**  
@@ -91,7 +91,7 @@ _Execution Time_: 793 mcs
 
 ### **Custom Decision Tree Classifier with criterion _Donskoy_ before pruning:**
 
-**The Tree:**
+**The Tree:**  
 <img src='assets\classification_donskoy_custom.png'>
 
 **The Confusion Matrix:**  
@@ -113,7 +113,7 @@ _Execution Time_: 524 mcs
 
 ### **Custom Decision Tree Classifier with criterion _Donskoy_ after pruning:**
 
-**The Tree:**
+**The Tree:**  
 <img src='assets\classification_donskoy_custom_prun.png'>
 
 **The Confusion Matrix:**  
