@@ -145,95 +145,84 @@ The code implements margin-based sample selection with temperature annealing for
 
 Several implementations of linear classifiers were evaluated on the mushroom dataset, with the following results:
 
-### Best Performing Models:
+### Model Performance (Ranked by Test Accuracy):
 
-1. **Margin-based Sampling**
+1. **Reference (SGD)**
    - Training Accuracy: 100.00%
    - Test Accuracy: 100.00%
-   - Perfect classification performance with optimal margin distribution
+   - Best performing model overall
+   - Validates the effectiveness of SGD approach
 
-2. **Reference SGD Implementation**
-   - Training Accuracy: 100.00%
-   - Test Accuracy: 100.00%
-   - Perfect precision, recall and F1-scores for both classes
+2. **Margin-based Sampling**
+   - Training Accuracy: 99.99%
+   - Test Accuracy: 99.94%
+   - Nearly perfect classification
+   - Most effective custom implementation
 
-3. **Correlation Initialization**
-   - Training Accuracy: 99.49%
-   - Test Accuracy: 99.29%
-   - Strong performance with feature correlation-based initialization
+3. **Random Sampling**
+   - Training Accuracy: 98.68%
+   - Test Accuracy: 98.10%
+   - Strong performance with simple sampling strategy
 
-### Good Performing Models:
+4. **Multi-start Random Init**
+   - Training Accuracy: 97.65%
+   - Test Accuracy: 97.92%
+   - Benefits from multiple initialization attempts
+   - 10 random starts to avoid local optima
 
-4. **Random Sampling**
-   - Training Accuracy: 98.19%
-   - Test Accuracy: 98.04%
-   - Effective simple sampling strategy
+5. **Correlation Init**
+   - Training Accuracy: 97.50%
+   - Test Accuracy: 97.80%
+   - Effective feature correlation-based initialization
 
-5. **Classic with L2 + Nesterov**
-   - Training Accuracy: 96.23%
-   - Test Accuracy: 96.02%
-   - Momentum-based optimization with regularization
+6. **Classic with L2 + Nesterov**
+   - Training Accuracy: 96.84%
+   - Test Accuracy: 96.62%
+   - Momentum improves basic L2 implementation
 
-6. **Classic with L2**
-   - Training Accuracy: 95.86%
-   - Test Accuracy: 94.89%
-   - Basic implementation with regularization
+7. **Classic with L2**
+   - Training Accuracy: 96.30%
+   - Test Accuracy: 95.43%
+   - Solid baseline performance
 
-### Lower Performing Model:
-
-7. **Classic with L2 + Nesterov + Optimal LR**
-   - Training Accuracy: 87.85%
-   - Test Accuracy: 86.64%
-   - Learning rate optimization didn't improve performance
-
-### Implementation Details:
-
-1. **Classic with L2**
-   - Base implementation with L2 regularization
-   - Uses stochastic gradient descent
-   - Regularization helps prevent overfitting
-
-2. **Classic with L2 + Nesterov**
-   - Adds Nesterov momentum to basic implementation
-   - Improved convergence speed
-   - Better generalization than basic L2
-
-3. **Classic with L2 + Nesterov + Optimal LR**
-   - Attempts to optimize learning rate
-   - Unexpectedly lower performance
-   - May indicate sensitivity to learning rate selection
-
-4. **Correlation Initialization**
-   - Initializes weights based on feature correlations
-   - Strong performance without complex optimization
-   - Demonstrates importance of weight initialization
-
-5. **Random Sampling**
-   - Simple random selection of training examples
-   - Surprisingly good performance
-   - Efficient training approach
-
-6. **Margin-based Sampling**
-   - Focuses on examples near decision boundary
-   - Achieves perfect classification
-   - Most effective sampling strategy
-
-7. **Reference SGD Implementation**
-   - sklearn's SGDClassifier as benchmark
-   - Perfect classification performance
-   - Validates effectiveness of custom implementations
+8. **Classic with L2 + Nesterov + Optimal LR**
+   - Training Accuracy: 77.47%
+   - Test Accuracy: 76.37%
+   - Significantly underperformed
+   - Learning rate optimization was not effective
 
 ### Key Findings:
 
-1. **Sampling Strategies**: Margin-based sampling proved highly effective, achieving perfect classification along with the reference implementation.
+1. **Sampling Strategy Impact**: 
+   - Margin-based sampling achieved nearly perfect classification (99.94%)
+   - Random sampling performed surprisingly well (98.10%)
+   - Both sampling strategies outperformed basic implementations
 
-2. **Initialization Impact**: Correlation-based initialization showed excellent performance without requiring complex optimization techniques.
+2. **Initialization Methods**:
+   - Multi-start random initialization (97.92%) and correlation-based initialization (97.80%) showed similar performance
+   - Both methods provided significant improvement over single random initialization
 
-3. **Regularization Effects**: L2 regularization consistently helped prevent overfitting across implementations.
+3. **Momentum and Regularization**:
+   - Nesterov momentum improved the basic L2 implementation (96.62% vs 95.43%)
+   - L2 regularization provided stable learning in all cases
 
-4. **Momentum Benefits**: Nesterov momentum generally improved performance when combined with L2 regularization.
+4. **Learning Rate Optimization**:
+   - Attempted optimal learning rate strategy significantly degraded performance (76.37%)
+   - Suggests sensitivity to learning rate selection
 
-5. **Learning Rate Sensitivity**: The attempt to optimize learning rate showed that model performance can be sensitive to learning rate selection.
+### Conclusions:
+
+1. The reference SGDClassifier implementation achieved perfect classification, setting a high benchmark.
+
+2. Margin-based sampling emerged as the most effective custom implementation, nearly matching the reference performance.
+
+3. Both sampling strategies (margin-based and random) outperformed other optimization approaches.
+
+4. Multi-start and correlation-based initialization provided similar improvements over basic initialization.
+
+5. Nesterov momentum showed modest but consistent improvement over basic L2 regularization.
+
+6. The attempted learning rate optimization strategy needs revision, as it significantly underperformed other approaches.
 
 ### Visualizations:
 ![Training History](Images/output.png)
