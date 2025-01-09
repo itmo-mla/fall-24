@@ -132,12 +132,12 @@ def loo_knn_parzen(X, y, bandwidth):
 ### Зависимость эмпирического риска (ошибки) от числа соседей $k$
 ![График эмпирического риска](k_risk.png)
 ```
-Min LOO risk: 150.000000
-Best k: 15
+Best fixed h: 0.3, Min LOO risk: 0.0333
+Best k for fixed h: 14
+Best k for non-fixed h: 15
 ```
 ### Метрики модели:
 ```python
-non fixed bandwidth: 0.6480740698407862
 Test Accuracy: 1.0
 Время работы алгоритма: 0.0010 секунд
 Отчет о классификации:
