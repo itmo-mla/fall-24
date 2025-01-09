@@ -82,7 +82,7 @@ The formula combines:
 
 ## Task 5: Stochastic Gradient Descent with momentum
 
-The stochastic gradient descent with Nesterov momentum and regularization is implemented using the following code:
+The stochastic gradient descent with momentum and regularization is implemented using the following code:
 
 ```python
 self.v = gamma * self.v + (1 - gamma) * self._margin_dloss(x, y_i)
@@ -175,7 +175,7 @@ Several implementations of linear classifiers were evaluated on the mushroom dat
    - Test Accuracy: 97.80%
    - Effective feature correlation-based initialization
 
-6. **Classic with L2 + Nesterov**
+6. **Classic with L2 + Momentum**
    - Training Accuracy: 96.84%
    - Test Accuracy: 96.62%
    - Momentum improves basic L2 implementation
@@ -185,7 +185,7 @@ Several implementations of linear classifiers were evaluated on the mushroom dat
    - Test Accuracy: 95.43%
    - Solid baseline performance
 
-8. **Classic with L2 + Nesterov + Optimal LR**
+8. **Classic with L2 + Momentum + Optimal LR**
    - Training Accuracy: 77.47%
    - Test Accuracy: 76.37%
    - Significantly underperformed
@@ -203,7 +203,7 @@ Several implementations of linear classifiers were evaluated on the mushroom dat
    - Both methods provided significant improvement over single random initialization
 
 3. **Momentum and Regularization**:
-   - Nesterov momentum improved the basic L2 implementation (96.62% vs 95.43%)
+   - Momentum improved the basic L2 implementation (96.62% vs 95.43%)
    - L2 regularization provided stable learning in all cases
 
 4. **Learning Rate Optimization**:
@@ -220,7 +220,7 @@ Several implementations of linear classifiers were evaluated on the mushroom dat
 
 4. Multi-start and correlation-based initialization provided similar improvements over basic initialization.
 
-5. Nesterov momentum showed modest but consistent improvement over basic L2 regularization.
+5. Momentum showed modest but consistent improvement over basic L2 regularization.
 
 6. The attempted learning rate optimization strategy needs revision, as it significantly underperformed other approaches.
 
@@ -235,7 +235,7 @@ Several implementations of linear classifiers were evaluated on the mushroom dat
 
 3. Correlation-based initialization proved highly effective, suggesting the importance of intelligent weight initialization.
 
-4. The addition of Nesterov momentum to L2 regularization improved performance slightly.
+4. The addition of momentum to L2 regularization improved performance slightly.
 
 5. Learning rate optimization requires careful tuning, as shown by the lower performance of the optimal learning rate variant.
 
