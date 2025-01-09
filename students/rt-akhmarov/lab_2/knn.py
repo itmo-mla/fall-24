@@ -13,7 +13,7 @@ def knn_parzen(X_train, y_train, X_test, k, bandwidth):
         neighbors_idx = np.argsort(distances)[:k+1]  # Индексы k ближайших соседей
         if bandwidth is None:
             bandwidth = distances[neighbors_idx[-1]]
-            print(f'non fixed bandwidth: {bandwidth}')
+            # print(f'non fixed bandwidth: {bandwidth}')
 
         neighbors_idx = neighbors_idx[:-1]
         weights = gaussian_kernel(distances[neighbors_idx], bandwidth)  # Вычисляем веса с помощью ядра
