@@ -9,7 +9,7 @@ class KNNWithParzen:
     @staticmethod
     def gaussian_kernel(distance: np.ndarray, kernel_width: float) -> np.ndarray:
         """Гауссово ядро для вычисления весов."""
-        coefficient = 1 / (np.sqrt(2 * np.pi) * kernel_width)
+        coefficient = 1 / np.sqrt(2 * np.pi)
         return coefficient * np.exp(-0.5 * (distance / kernel_width) ** 2)
 
     def predict(self, X_train: np.ndarray, y_train: np.ndarray, X_test: np.ndarray, k: int) -> np.ndarray:
@@ -18,12 +18,12 @@ class KNNWithParzen:
         for test_point in X_test:
             distances = np.linalg.norm(X_train - test_point, axis=1)
 
+            nearest_neighbors_idx = np.argsort(distances)[:k+1]
             # K ближайших соседей
-            nearest_neighbors_idx = np.argsort(distances)[:k]
-            nearest_distances = distances[nearest_neighbors_idx]
-            nearest_labels = y_train[nearest_neighbors_idx]
+            nearest_distances = distances[nearest_neighbors_idx[:-1]]
+            nearest_labels = y_train[nearest_neighbors_idx[:-1]]
 
-            weights = self.gaussian_kernel(nearest_distances, self.kernel_width)
+            weights = self.gaussian_kernel(nearest_distances, distances[nearest_neighbors_idx[-1]])
 
             weighted_votes = {}
             for label, weight in zip(nearest_labels, weights):
