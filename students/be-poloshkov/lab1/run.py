@@ -149,12 +149,17 @@ def main():
     # countries
     countries_data = pd.read_csv('world_country_and_usa_states_latitude_and_longitude_values.csv')
 
-
     plt.scatter(countries_data['longitude'].to_numpy(), countries_data['latitude'].to_numpy())
     plt.show()
 
     countries_clustered_data = countries_data[['longitude', 'latitude']]
     countries_clustered_data = countries_clustered_data.dropna(axis=0, how='any')
+
+    # optimal cluster number
+    wcss = elbow_method(countries_clustered_data)
+    plot_elbow(wcss, "countries")
+    wcss = elbow_method(wine_data_tsne)
+    plot_elbow(wcss, "wine")
 
     # Agglo
     countries_sk_aggl = AgglomerativeClustering(n_clusters=3)
