@@ -84,7 +84,6 @@ def make_linkage(model):
     return linkage_matrix
 
 def plot_countries(title, labels, df):
-    # df['cluster'] = labels
     plt.scatter(df['latitude'], df['longitude'], c=labels, cmap='rainbow')
     plt.xlim(-180, 180)
     plt.ylim(-90, 90)
