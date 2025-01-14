@@ -34,7 +34,7 @@ def _id3_classification(self, features, labels, depth, max_depth, min_samples_sp
         probabilities = counts / len(labels)
         return counts.argmax(), None, None, None, probabilities
 
-    # Если все метки одинаковы -> возвращаем класс + вероятности
+    # Если все лейблы одинаковы -> возвращаем класс + вероятности
     unique_labels = np.unique(labels)
     if len(unique_labels) == 1:
         counts = np.bincount(labels)
@@ -161,7 +161,7 @@ def _id3_classification(self, features, labels, depth, max_depth, min_samples_sp
       Время предсказания: 0.0039 секунд
       Точность модели после обрезки: 75.98%
       ```
-   Sklearn реализация (критейрий Донского не используется в стандартных реализациях DecisionTreeClassifier из sklearn, для сравнения был взят дефолтный критерий Gini):
+   Sklearn реализация:
    ```bash
    Время обучения модели Gini: 0.0018 секунд
    Время обучения модели Entropy: 0.0018 секунд
