@@ -63,8 +63,8 @@ df_balanced = df_balanced.sample(frac=1, random_state=42).reset_index(drop=True)
 Точка на графике, где LOO Accuracy достигает пика, указывает на оптимальное количество соседей для модели KNN.  
 **Итог:**
 ```bash
-Optimal k value: 7
-Test accuracy with k=7: 0.8842
+Optimal k value: 9
+Test accuracy with k=9: 0.8792
 ```
 
 ## Графики эмпирического риска для различных k
@@ -92,8 +92,8 @@ Test accuracy with k=7: 0.8842
 **Training error rate at optimal k** — значение ошибки на обучающей выборке для лучшего значения k.
 ```bash
 Optimal k value based on test error: 7
-Minimum test error rate: 0.1158
-Training error rate at optimal k: 0.0830
+Minimum test error rate: 0.1150
+Training error rate at optimal k: 0.0750
 ```
 Подытожив, k=7 является оптимальным, поскольку он обеспечивает минимальную ошибку на тестовых данных при низком уровне ошибки на обучающей выборке.
 
@@ -103,14 +103,14 @@ Training error rate at optimal k: 0.0830
 
 ```bash
 Sklearn KNN:
-Accuracy: 0.8760
-Time: 0.1317 seconds
+Accuracy: 0.8792
+Time: 0.0180 seconds
 
 Custom KNN:
-Accuracy: 0.8762
-Time: 13.6782 seconds
+Accuracy: 0.8792
+Time: 0.7015 seconds
 
-Prediction agreement between implementations: 0.9992
+Prediction agreement between implementations: 0.9983
 ```
 
 Обе реализации показывают одинаково высокую точность, что говорит о правильной реализации алгоритма. Эталонная реализация sklearn значительно превосходит кастомную по времени выполнения. Высокая согласованность предсказаний (зrediction agreement) говорит о том, что кастомная реализация корректно воспроизводит поведение эталонного алгоритма KNN.
