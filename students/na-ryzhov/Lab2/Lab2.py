@@ -149,7 +149,7 @@ def run_experiment():
     precision_sklearn = precision_score(test_labels, sklearn_predictions, average='weighted')
     recall_sklearn = recall_score(test_labels, sklearn_predictions, average='weighted')
     f1_sklearn = f1_score(test_labels, sklearn_predictions, average='weighted')
-
+#
     print(f"Accuracy (library implementation): {accuracy_sklearn * 100:.2f}%")
     print(f"Precision: {precision_sklearn:.4f}")
     print(f"Recall: {recall_sklearn:.4f}")
