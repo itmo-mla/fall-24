@@ -10,31 +10,25 @@ from sklearn.svm import SVC
 import matplotlib.pyplot as plt
 import time
 
-# Загрузка датасета Iris
 iris = load_iris()
 X, y = iris.data, iris.target
 
-# Отбор двух классов для бинарной классификации
 class_1, class_2 = 0, 1
 mask = (y == class_1) | (y == class_2)
 X = X[mask]
 y = y[mask]
-y = np.where(y == class_1, -1, 1)  # Преобразуем метки в -1 и 1
+y = np.where(y == class_1, -1, 1)
 
-# Разделение на обучающую и тестовую выборки
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
 
-# Стандартизация признаков
 scaler = StandardScaler()
 X_train = scaler.fit_transform(X_train)
 X_test = scaler.transform(X_test)
 
-# Применение PCA для уменьшения размерности до 2 для визуализации
 pca = PCA(n_components=2)
 X_train_2d = pca.fit_transform(X_train)
 X_test_2d = pca.transform(X_test)
 
-# Реализация двойственной задачи
 def dual_objective(lambdas, X, y, kernel):
     n = len(y)
     term1 = 0.5 * np.sum([
@@ -47,7 +41,6 @@ def dual_objective(lambdas, X, y, kernel):
 def constraint_eq(lambdas, y):
     return np.dot(lambdas, y)
 
-# Решение двойственной задачи
 def solve_dual(X, y, kernel, C=None):
     n = len(y)
     bounds = [(0, C) for _ in range(n)] if C else [(0, None) for _ in range(n)]
@@ -61,7 +54,6 @@ def solve_dual(X, y, kernel, C=None):
     )
     return result.x
 
-# Вычисление параметров гиперплоскости
 def compute_weights_and_bias(X, y, lambdas, kernel):
     support_indices = np.where(lambdas > 1e-5)[0]
     weights = np.sum([
@@ -75,7 +67,6 @@ def compute_weights_and_bias(X, y, lambdas, kernel):
     ])
     return weights, bias
 
-# Функция для предсказания
 def predict(X, weights, bias, kernel=None):
     if kernel:
         return np.sign([
@@ -85,7 +76,6 @@ def predict(X, weights, bias, kernel=None):
     else:
         return np.sign(np.dot(X, weights) + bias)
 
-# Ядра
 linear_kernel = lambda x1, x2: np.dot(x1, x2)
 def rbf_kernel(x1, x2, gamma=1.0):
     return np.exp(-gamma * np.linalg.norm(x1 - x2)**2)
@@ -93,7 +83,6 @@ def rbf_kernel(x1, x2, gamma=1.0):
 def poly_kernel(x1, x2, degree=3, coef0=1):
     return (np.dot(x1, x2) + coef0)**degree
 
-# Ядра для использования в SVC
 kernels = {
     "Linear Kernel": linear_kernel,
     "RBF Kernel": lambda x1, x2: rbf_kernel(x1, x2, gamma=0.5),
@@ -104,7 +93,6 @@ native_results = {}
 sklearn_results = {}
 
 for kernel_name, kernel_func in kernels.items():
-    # Реализация с использованием собственной реализации
     start_time_native = time.time()
     lambdas = solve_dual(X_train_2d, y_train, kernel_func)
     weights, bias = compute_weights_and_bias(X_train_2d, y_train, lambdas, kernel_func)
@@ -113,7 +101,6 @@ for kernel_name, kernel_func in kernels.items():
     native_time = time.time() - start_time_native
     native_results[kernel_name] = (accuracy, native_time)
 
-    # Реализация с использованием sklearn
     start_time_sklearn = time.time()
     svm = SVC(
         kernel='linear' if kernel_name == "Linear Kernel" else
@@ -127,7 +114,6 @@ for kernel_name, kernel_func in kernels.items():
     sklearn_time = time.time() - start_time_sklearn
     sklearn_results[kernel_name] = (accuracy_sklearn, sklearn_time)
 
-# Вывод результатов
 for kernel_name in kernels.keys():
     native_accuracy, native_time = native_results[kernel_name]
     sklearn_accuracy, sklearn_time = sklearn_results[kernel_name]
@@ -135,7 +121,6 @@ for kernel_name in kernels.keys():
     print(f"  Native - Accuracy: {native_accuracy:.4f}, Time: {native_time:.4f} seconds")
     print(f"  Sklearn - Accuracy: {sklearn_accuracy:.4f}, Time: {sklearn_time:.4f} seconds")
 
-# Визуализация результатов
 plt.figure(figsize=(15, 15))
 plot_idx = 1
 
