@@ -74,7 +74,6 @@ class LinearClassifier:
             self.loss_history.append(self._epoch_loss(X, y, w))
         return w
 
-# Загружаем данные и готовим их для классификации
 iris_data = load_iris()
 X_data = iris_data.data
 y_data = iris_data.target
@@ -92,7 +91,6 @@ def margin_based_sampling(X, y, w):
     indices = np.argsort(np.abs(margins))
     return X[indices], y[indices]
 
-# Инициализация и обучение моделей
 classifier_sgd = LinearClassifier(algorithm='momentum_sgd', learning_rate=0.01, momentum=0.9, regularization=0.01, max_epochs=10000, sampling_fn=margin_based_sampling, weight_init='correlation')
 classifier_sgd.train(X_train_scaled, y_train)
 sgd_accuracy = classifier_sgd.evaluate(X_test_scaled, y_test)
@@ -105,10 +103,8 @@ sgd_builtin = SGDClassifier(loss="squared_error", penalty="l2", max_iter=8000, r
 sgd_builtin.fit(X_train_scaled, y_train)
 builtin_accuracy = accuracy_score(y_test, sgd_builtin.predict(X_test_scaled))
 
-# Вывод результатов
 print(sgd_accuracy, sd_accuracy, builtin_accuracy)
 
-# Визуализация решений
 fig, axes = plt.subplots(1, 3, figsize=(15, 5), sharex=True, sharey=True)
 models = [(classifier_sgd, "SGD+Momentum"), (classifier_sd, "Steepest Descent"), (sgd_builtin, "SGDClassifier")]
 xx, yy = np.meshgrid(
@@ -199,7 +195,6 @@ class LinearClassifier:
             self.loss_history.append(self._epoch_loss(X, y, w))
         return w
 
-# Загружаем данные и готовим их для классификации
 iris_data = load_iris()
 X_data = iris_data.data
 y_data = iris_data.target
@@ -217,7 +212,6 @@ def margin_based_sampling(X, y, w):
     indices = np.argsort(np.abs(margins))
     return X[indices], y[indices]
 
-# Инициализация и обучение моделей
 classifier_sgd = LinearClassifier(algorithm='momentum_sgd', learning_rate=0.01, momentum=0.9, regularization=0.01, max_epochs=10000, sampling_fn=margin_based_sampling, weight_init='correlation')
 classifier_sgd.train(X_train_scaled, y_train)
 sgd_accuracy = classifier_sgd.evaluate(X_test_scaled, y_test)
@@ -230,12 +224,10 @@ sgd_builtin = SGDClassifier(loss="squared_error", penalty="l2", max_iter=8000, r
 sgd_builtin.fit(X_train_scaled, y_train)
 builtin_accuracy = accuracy_score(y_test, sgd_builtin.predict(X_test_scaled))
 
-# Вывод результатов
 print(f"sgd_accuracy: {sgd_accuracy:.4f}")
 print(f"sd_accuracy: {sd_accuracy:.4f}")
 print(f"builtin_accuracy: {builtin_accuracy:.4f}")
 
-# Визуализация решений
 fig, axes = plt.subplots(1, 3, figsize=(15, 5), sharex=True, sharey=True)
 models = [(classifier_sgd, "SGD+Momentum"), (classifier_sd, "Steepest Descent"), (sgd_builtin, "SGDClassifier")]
 xx, yy = np.meshgrid(
